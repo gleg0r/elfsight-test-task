@@ -7,8 +7,8 @@ import Card from "../card/Card";
 
 const GridContainer = styled.div`
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
     grid-column-gap: 20px;
     grid-row-gap: 20px;
     padding: 60px;
@@ -28,10 +28,12 @@ export default function ListContainer() {
        dispatch(setShowModal(true));
     }
 
+    console.log(characters);
+
     return (
         status === 'resolved' && <GridContainer>
             {
-            characters.results.map((item, index) => {
+            characters.map((item, index) => {
                 return <Card
                             onClick={() => handleClick(index)}
                             name={item.name}

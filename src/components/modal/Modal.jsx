@@ -136,12 +136,10 @@ export default function Modal() {
         dispatch(setShowModal(false));
     }
 
-    console.log(characters.results)
-
     return(
         createPortal(
             showModal && 
-                characters.results.map((item, index) => {
+                characters.map((item, index) => {
                     if(index === characterId) {
                         return (
                             <>

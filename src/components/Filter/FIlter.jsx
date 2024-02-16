@@ -1,5 +1,13 @@
-import { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { 
+    filterGender,
+    filterName,
+    filterSpecies,
+    filterStatus,
+    filterType,
+    filterAllFilters
+} from "../../store/getDataSlice";
 
 const FilterContainer = styled.div`
     display: flex;
@@ -29,11 +37,41 @@ const Button = styled.button`
 `
 
 export default function Filter() {
-    const [filterType, setFilterType] = useState('ALL')
+    //const [filterType, setFilterType] = useState('ALL')
+    const dispatch = useDispatch(); 
+    
+    function filterClick(type) {
+        switch (type) {
+            case 'ALL':
+                dispatch(filterAllFilters());
+                break;
+            case 'NAME':
+                dispatch(filterName());
+                break;
+            case 'STATUS':
+                dispatch(filterStatus());
+                break;
+            case 'SPECIES':
+                dispatch(filterSpecies());
+                break; 
+            case 'TYPE':
+                dispatch(filterType());
+                break;
+            case 'GENDER':
+                dispatch(filterGender());
+                break;           
+            default: console.log('error');    
+        }
+    }
 
     return(
         <FilterContainer>
-            
+            <Button onClick={() => filterClick('ALL')}>Фильтр по все параметрам</Button>
+            <Button onClick={() => filterClick('NAME')}>По имени</Button>
+            <Button onClick={() => filterClick('STATUS')}>По статусу</Button>
+            <Button onClick={() => filterClick('SPECIES')}>По виду</Button>
+            <Button onClick={() => filterClick('TYPE')}>По типу</Button>
+            <Button onClick={() => filterClick('GENDER')}>По полу</Button>
         </FilterContainer>
     )
 }
