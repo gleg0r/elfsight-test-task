@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getCharacters, setShowModal, setCharacter } from "../../store/getDataSlice";
@@ -33,6 +33,32 @@ const GridContainer = styled.div`
     }
 `
 
+const rotate = keyframes`
+    0%{
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+`
+
+const LoaderContainer = styled.div`
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+const Loader = styled.div`
+    width: 75px;
+    height: 75px;
+    border-top: 3px solid #FDFAFF;
+    border-right: 3px solid #FDFAFF;
+    border-radius: 50%;
+    animation: ${rotate} 1s infinite linear;
+`
+
 export default function ListContainer() {
     const characters = useSelector(state => state.getData.characters);
     const status = useSelector(state => state.getData.status);
@@ -50,19 +76,22 @@ export default function ListContainer() {
     console.log(characters);
 
     return (
-        status === 'resolved' && <GridContainer>
+        status === 'resolved' ? <GridContainer>
             {
-            characters.map((item, index) => {
-                return <Card
-                            onClick={() => handleClick(index)}
-                            name={item.name}
-                            url={item.image}
-                            status={item.status}
-                            gender={item.gender}
-                            species={item.species}
-                        />
-            })
+                characters.map((item, index) => {
+                    return <Card
+                                onClick={() => handleClick(index)}
+                                name={item.name}
+                                url={item.image}
+                                status={item.status}
+                                gender={item.gender}
+                                species={item.species}
+                            />
+                })
             }
         </GridContainer>
+        :   <LoaderContainer>
+            <Loader />
+        </LoaderContainer>
     )
 }
