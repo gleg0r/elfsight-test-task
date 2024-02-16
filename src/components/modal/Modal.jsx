@@ -26,10 +26,17 @@ const ModalContainer = styled.div`
     background: #282828;
     opacity: 1;
     border-radius: 40px;
-    filter: drop-shadow(0 1px 20px #8A2DE7);
+    filter: drop-shadow(0 0px 20px #8A2DE7);
     border: 1px solid #868686;
     padding: 20px;
     justify-content: center;
+    @media (max-width: 660px) {
+        width: 100%;
+        margin: 20px;
+    }
+    @media (max-width: 460px) {
+        border-radius: 0;
+    }
 `
 
 const ModalBackground = styled.div`
